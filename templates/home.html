@@ -1,0 +1,71 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content%}
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col-6">
+      <div class="p-2">
+        <h1>Welcome To Car Blog</h1>
+        <h5>
+          A car, or an automobile, is a motor vehicle with wheels.
+           Most definitions of cars state that they run primarily on roads, seat one to
+           eight people, have four wheels, and mainly transport people over cargo.[1][2] 
+            here are around one billion cars in use worldwide. The car is considered an 
+            essential part of the developed economy.[citation needed]
+            The French inventor Nicolas-Joseph Cugnot built the first steam-powere
+        </h5>
+      </div>
+    </div>
+    <div class="col-6 d-flex align-items-center">
+        <img style="object-fit: cover; width: 100%; height: 100%;"  class="img-fluid rounded"  src="{% static 'images.jpg' %}" />
+    </div>
+  </div>
+</div>
+<br> <br> 
+<div class="container">
+  <div class="row">
+    <h1 class='text text-center p-5'>All Brand</h1>
+    {% for br in brand %}
+    <div class='col-2'>
+       <label class="btn btn-outline-gray" for="{{br.id}}">
+        <button class='btn btn-info'>
+          <a href="{% url 'brand_wise_car' br.slug %}" class="text-decoration-none text-gray">{{br.name}}</a>
+        </button>
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br><br><br><br>  
+
+<div class="text-center ">
+  <h4 class="mx-2">TOTAL CAR: {{ data | length}}</h4>
+</div>
+<div>
+  <div class="d-flex flex-wrap justify-content-center px-5 pt-3">
+    {% for car in data %}
+    <div class="col-sm-3 p-3">
+      <div class="card mx-2">
+        {% if car.image %}
+    <img src="{{ car.image.url }}" alt="an image" />
+{% else %}
+    <img src="/path/to/default/image.jpg" alt="default image" />
+{% endif %}
+
+        <div class="card-body">
+          <h5 class="card-title">{{car.title}}</h5>
+          <b>Price: ${{car.price}}</b>
+          <p class="card-text">{{car.content | truncatewords:15}}</p>
+          <p class="fw-bold">Brand: {{car.brand.name}}</p>
+          <p>
+            <a class="btn btn-warning text-decoration-none text-dark "href="{% url 'car_details' car.id %}">View Details</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br><br><br><br><br>
+
+{% endblock %}

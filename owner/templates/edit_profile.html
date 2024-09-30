@@ -1,0 +1,13 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %}  
+
+{% block content %} 
+<form style="width: 50%; margin:auto;" method="post">
+    <h1>Edit profile page</h1> 
+    <a class="btn btn-warning mb-2 btn-sm" href="{% url 'pass_change' %}">Change password</a>
+    {% csrf_token %}  
+    {{ form | crispy }}
+    <button class="btn btn-success mb-2">Submit</button> <br>
+    
+</form>
+{% endblock %}  
